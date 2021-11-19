@@ -1,0 +1,31 @@
+{% extends 'main.html' %} {% block content %}
+
+<br />
+
+<body style="background: gold;">
+  <div class="row">
+    <div class="col-md">
+      <div class="card card-body" style="background-color: steelblue;">
+        <h5 style="padding: 1em; background-color: ghostwhite;">All Passengers</h5>
+      </div>
+      <div class="card card-body" style="margin-top: 2em; background-color: steelblue;">
+        <table class="table">
+          <tr>
+            <th style="padding: 1em; background-color: ghostwhite;">Name</th>
+            <th style="background-color: ghostwhite; padding: 1em;">Address</th>
+            <th style="background-color: ghostwhite; padding: 1em;">Preferred Number</th>
+          </tr>
+
+          {% for i in passenger %}
+          <tr>
+            <td style="color: ghostwhite;">{{i.name}}</td>
+            <td style="color: ghostwhite;">{{i.address}}</td>
+            <td style="color: ghostwhite;">{{i.preferred_Number}}</td>
+          </tr>
+          {% endfor %}
+        </table>
+      </div>
+    </div>
+  </div>
+</body>
+{% endblock content %}

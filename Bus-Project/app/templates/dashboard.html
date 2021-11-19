@@ -1,0 +1,58 @@
+{% extends 'main.html' %} {% block content %} {% include 'status.html' %}
+
+<br />
+<style>
+  body {
+    background-color: gold;
+  }
+  #body_for_boxes {
+    background-color: steelblue;
+  }
+</style>
+  <div style="margin-top: 2em">
+    <h4 style="padding-top: 0.4em; padding-bottom: 0.4em; text-align: center; background-color: steelblue; color: ghostwhite; margin-left: 38%; margin-right: 38%">Last Recorded Arrivals:</h4>
+    <hr />
+    <div class="card card-body" id="body_for_boxes">
+      <table class="table table-sm">
+        <tr>
+          <th style="padding-right: 0.6em; padding-top: 0.5em; color: ghostwhite; font-size: 1.2em;">Passenger</th>
+          <th style="padding-right: 0.6em; padding-top: 0.5em; color: ghostwhite; font-size: 1.2em">Age</th>
+          <th style="padding-right: 0.6em; padding-top: 0.5em; padding-left: 0.9em; color: ghostwhite; font-size: 1.2em;">Status</th>
+          <th style="padding-right: 0.4em; padding-left: 5em; color: ghostwhite; font-size: 1.2em; padding-top: 0.5em">Date</th>
+          {% if user.is_authenticated %}
+          <th style="padding-right: 0.6em; padding-top: 0.5em;font-size: 1.2em; color: ghostwhite">Update</th>
+          {% endif %}
+          {% if user.is_superuser%}
+          <th style="padding-top: 0.5em; padding-bottom: 0.6em; font-size: 1.2em; color: ghostwhite">Remove</th>
+          {% endif %}
+        </tr>
+
+        {% for arrive in arriving %}
+        <tr style="color: ghostwhite">
+          <td>{{arrive.passenger_name}}</td>
+          <td style="padding-right: 3em">{{arrive.age}}</td>
+          <td>{{arrive.status}}</td>
+          <td style="padding-left: 3em">{{arrive.date_created}}</td>
+          <td>
+            {%if user.is_authenticated%}
+            <a class="btn btn-sm btn-info" href="{% url 'update_arriving' arrive.id %}" style="margin-right: 3em">Update</a>
+            {% endif %}
+          </td>
+
+          <td>
+            {% if user.is_superuser %}
+            <a
+              class="btn btn-sm btn-danger"
+              href="{% url 'delete_arriving' arrive.id %}"
+              >Delete</a
+            >
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </table>
+    </div>
+  </div>
+</div>
+
+{% endblock %}
